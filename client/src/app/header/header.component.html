@@ -1,0 +1,71 @@
+<nav class="navbar navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand" href="#">DIR Assignment</a>
+    </div>
+</nav>
+<div class="container">
+    <!-- <div *ngIf="notext" class="my-4">
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            Please enter a directory
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div> -->
+    <div class="form-group">
+        <input #direct placeholder="Enter a Directory" (keyup.enter)="checkDir(direct.value)" class="form-control my-4">
+        <div class="d-grid gap-2 col-6 mx-auto my-2">
+            <button (click)="checkDir(direct.value)" class="btn btn-dark" type="button">Check Directory</button>
+        </div>
+    </div>
+
+    <div *ngIf="chosen">
+        <span class="d-flex flex-row my-4">
+            <p class="lead">Directory: </p>
+
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb my-1 mx-2">
+                    <li *ngFor="let item of directory$" class="breadcrumb-item active" aria-current="page">{{item}}</li>
+                </ol>
+            </nav>
+        </span>
+        <hr>
+    </div>
+    <div *ngIf="empty" class="empty">
+        <p class="lead">There chosen directory is empty.</p>
+    </div>
+
+    <div *ngIf="error" class="empty">
+        <p class="lead">{{error_message$}}</p>
+    </div>
+
+    <div *ngIf="details">
+        <p class="lead">Directory Details - Files</p>
+
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div *ngFor="let item of list_n_dir$" class="col">
+
+                <ul class="list-group" style="overflow: hidden;">
+                    <li class="list-group-item"><strong>{{item.filename}}</strong></li>
+                    <li class="list-group-item">Filepath: {{item.absolutePath}}</li>
+                    <li class="list-group-item">Size: {{item.fileSize}}</li>
+                    <li class="list-group-item">File Extension: {{item.extname}}</li>
+                    <li class="list-group-item">Date Created: {{item.birthtime}}</li>
+                    <li class="list-group-item">File Permissions: {{item.unixFilePermissions}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="details_dir">
+        <p class="lead my-4">Directory Details - Folders</p>
+
+        <div *ngFor="let item of list_dir$">
+            <a (click)="checkTwoDir(dirs$.directory, itemvalue.value)" href="#">
+                <input hidden disabled #itemvalue value="//{{item}}"> {{item}}
+            </a>
+        </div>
+
+
+    </div>
+    <div class="my-4"></div>
+
+</div>
